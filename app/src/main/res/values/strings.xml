@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MyHaUI</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="university_name">Trường Đại Học Công Nghiệp Hà Nội</string>
+    <string name="student_id_hint">Mã sinh viên</string>
+    <string name="full_name_hint">Họ tên</string>
+    <string name="phone_hint">Số điện thoại</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="confirm_password_hint">Nhập lại mật khẩu</string>
+    <string name="login">Đăng Nhập</string>
+    <string name="no_account">Bạn chưa có tài khoản ?</string>
+    <string name="register">Đăng Kí</string>
+    <string name="logo_desc">University Logo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
