@@ -27,6 +27,7 @@
             android:layout_weight="4"
             android:background="@drawable/border_edittext"
             android:hint="Tìm kiếm"
+            android:minHeight="48dp"
             android:padding="10dp" />
 
         <ImageButton
@@ -37,14 +38,14 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_search" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/circle_background"
-            android:scaleType="centerCrop" />
+<!--        <ImageView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:src="@drawable/ic_search"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:background="@drawable/circle_background"-->
+<!--            android:scaleType="centerCrop" />-->
     </LinearLayout>
 
     <!-- RecyclerView for Categories -->

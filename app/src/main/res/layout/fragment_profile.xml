@@ -33,6 +33,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:text="Thông tin chi tiết"
+            android:labelFor="@+id/backButton"
             android:textColor="#000000"
             android:textSize="18sp"
             android:layout_gravity="center"
@@ -45,6 +46,7 @@
             android:layout_height="wrap_content"
             android:text="Sửa"
             android:background="?attr/selectableItemBackground"
+            android:minHeight="48dp"
             android:textColor="#1A94F4"
             android:textStyle="bold"
             android:textSize="16sp"/>
