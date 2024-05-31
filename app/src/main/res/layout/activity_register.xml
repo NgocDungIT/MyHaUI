@@ -33,6 +33,7 @@
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:hint="@string/student_id_hint"
+        android:inputType="number"
         android:padding="10dp"
         android:background="@drawable/border_edittext"
         android:layout_marginBottom="20dp" />
@@ -44,13 +45,45 @@
         android:hint="@string/full_name_hint"
         android:padding="10dp"
         android:background="@drawable/border_edittext"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="10dp" />
+
+    <RadioGroup
+        android:id="@+id/rdGender"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Nam"
+            android:textSize="18sp"
+            android:textColor="#EFEFEF"
+            android:layout_marginBottom="10dp"
+            />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Nữ"
+            android:textSize="18sp"
+            android:textColor="#EFEFEF"
+            android:checked="true"
+
+            />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/phoneEditText"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:hint="@string/phone_hint"
+        android:inputType="phone"
         android:padding="10dp"
         android:background="@drawable/border_edittext"
         android:layout_marginBottom="20dp" />
