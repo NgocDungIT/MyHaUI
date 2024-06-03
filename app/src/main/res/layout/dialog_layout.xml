@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="392dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="THÊM BẠN BÈ"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/dialog_txtCode"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:hint="Nhập mã sinh viên"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview"
+        android:layout_margin="15dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/dialog_btnAdd"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Thêm bạn"
+            android:background="@drawable/border_buttom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="40dp"/>
+
+        <Button
+            android:id="@+id/dialog_btnCancel"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Hủy"
+            android:layout_toRightOf="@id/dialog_btnAdd"
+            android:background="@drawable/border_buttom"
+            android:backgroundTint="#F44336"
+            android:layout_marginBottom="20dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

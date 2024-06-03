@@ -12,6 +12,7 @@
     android:id="@+id/item_borrow_book">
 
     <ImageView
+        android:id="@+id/borrow_item_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/pic_book"
@@ -25,18 +26,21 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/borrow_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Giáo trình Android"
             android:textColor="#000000"
-            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textSize="18sp"
             android:layout_marginBottom="5dp" />
 
         <TextView
+            android:id="@+id/borrow_item_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trạng thái: Đang mượn"
             android:textColor="#757575"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

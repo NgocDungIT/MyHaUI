@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/border_item_book"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_margin="12dp"
     android:id="@+id/item_book">
 
+    <ImageView
+        android:id="@+id/item_book_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/pic_book"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_background"
+        android:layout_marginEnd="10dp" />
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/pic_book" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="150dp"
-            android:gravity="center"
+            android:id="@+id/item_book_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="RICK RIORDAN"
+            android:text="Giáo trình Android"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="5dp" />
 
         <TextView
-            android:layout_width="150dp"
+            android:id="@+id/item_book_decription"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:text="THE TRIALS OF APOLLO"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Trạng thái: Đang mượn"
+            android:textColor="#4E4E4E"
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

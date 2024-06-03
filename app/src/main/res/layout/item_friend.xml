@@ -24,19 +24,21 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/item_friend_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:text="Hoàng Ngọc Dũng"
             android:textStyle="bold"
             android:textColor="#000000"
-            android:textSize="19sp" />
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/item_friend_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2021602029"
             android:textColor="#000000"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

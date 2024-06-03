@@ -13,29 +13,36 @@
         android:theme="@style/Theme.MyHaUI"
         tools:targetApi="31">
         <activity
+            android:name=".controller.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.FriendDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.BorrowDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".controller.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".controller.LogInActivity"
-            android:exported="false" />
-        <activity
             android:name=".controller.FriendListActivity"
             android:exported="false" />
-        <activity
-            android:name=".controller.BorrowBooksListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".controller.BookDetailActivity"
-            android:exported="false" />
+         <activity
+         android:name=".controller.BorrowBooksListActivity"
+         android:exported="false" />
+         <activity
+         android:name=".controller.BookDetailActivity"
+         android:exported="false" />
         <activity
             android:name=".controller.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".controller.LogInActivity"
+            android:exported="true"
+            tools:ignore="DuplicateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

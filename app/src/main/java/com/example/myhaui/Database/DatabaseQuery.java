@@ -1,5 +1,6 @@
 package com.example.myhaui.Database;
 
+import static com.example.myhaui.Util.Config.COLUMN_AUTHOR_ID;
 import static com.example.myhaui.Util.Config.COLUMN_AUTHOR_NAME;
 import static com.example.myhaui.Util.Config.COLUMN_BOOK_AUTHOR_ID;
 import static com.example.myhaui.Util.Config.COLUMN_BOOK_DESCRIPTION;
@@ -343,7 +344,7 @@ public class DatabaseQuery {
     }
 
     // public delete Friend By User
-    public boolean deleteFriendByUser(int userId, int friendId) {
+    public boolean deleteFriendByUser(int userId, String friendCode) {
         boolean deleteFriend = false;
         DBHelper databaseHelper = DBHelper.getInstance(context);
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -351,7 +352,7 @@ public class DatabaseQuery {
         try {
             //for "1" delete() method returns number of deleted rows
             //if you don't want row count just use delete(TABLE_NAME, null, null)
-            db.delete(TABLE_FRIEND, COLUMN_FRIEND_USERID + " = ? AND " + COLUMN_FRIEND_ID + " = ?", new String[]{String.valueOf(userId), String.valueOf(friendId)});
+            db.delete(TABLE_FRIEND, COLUMN_FRIEND_USERID + " = ? AND " + COLUMN_FRIEND_CODE + " = ?", new String[]{String.valueOf(userId), String.valueOf(friendCode)});
 
             long count = DatabaseUtils.queryNumEntries(db, TABLE_FRIEND);
 
@@ -423,12 +424,40 @@ public class DatabaseQuery {
         return Collections.emptyList();
     }
 
+    //    get Author By ID
+    public Author getAthorByID(int id) {
+        DBHelper databaseHelper = DBHelper.getInstance(context);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+
+        Cursor cursor = null;
+        Author author = null;
+        try {
+            cursor = db.query(Config.TABLE_AUTHOR, null, COLUMN_AUTHOR_ID + " = ? ", new String[]{String.valueOf(id)}, null, null, null);
+            if (cursor.moveToFirst()) {
+                int idAuthor = safeGetInteger(cursor, COLUMN_AUTHOR_ID);
+                String userCode = safeGetString(cursor, COLUMN_AUTHOR_NAME);
+
+                author = new Author(idAuthor, userCode);
+            }
+        } catch (Exception ex) {
+            Toast.makeText(context, "Có lỗi xảy ra khi đọc dữ liệu", Toast.LENGTH_SHORT).show();
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return author;
+    }
+
     /*
      * Books Table
      * create book
      * get all book
      * get all book by author_id
      * get book by id
+     * update quantity b0ok
      *
      * */
 //    create new book
@@ -571,6 +600,25 @@ public class DatabaseQuery {
             db.close();
         }
         return book;
+    }
+
+    //Update User
+    public long updateQuantityBook(int id, int quantityNew) {
+        long rowCount = 0;
+        DBHelper databaseHelper = DBHelper.getInstance(context);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put(COLUMN_BOOK_QUANTITY, quantityNew);
+
+        try {
+            rowCount = db.update(TABLE_BOOK, content, COLUMN_BOOK_ID + " = ? ", new String[]{String.valueOf(id)});
+
+        } catch (SQLiteException ex) {
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+        } finally {
+            db.close();
+        }
+        return rowCount;
     }
 
     /*
@@ -716,5 +764,24 @@ public class DatabaseQuery {
         return order;
     }
 
+    // update order due date
+    public long updateOrder(int id, String dueDate) {
+        long rowCount = 0;
+        DBHelper databaseHelper = DBHelper.getInstance(context);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put(COLUMN_ORDER_DUE_DATE, dueDate);
+        content.put(COLUMN_ORDER_IS_RETURNED, "1");
+
+        try {
+            rowCount = db.update(TABLE_ORDER, content, COLUMN_ORDER_ID + " = ? ", new String[]{String.valueOf(id)});
+
+        } catch (SQLiteException ex) {
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+        } finally {
+            db.close();
+        }
+        return rowCount;
+    }
 
 }
