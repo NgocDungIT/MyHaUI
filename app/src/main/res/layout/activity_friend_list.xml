@@ -18,7 +18,7 @@
         android:padding="10dp">
 
         <ImageButton
-            android:id="@+id/backButton"
+            android:id="@+id/friend_list_btn_back"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="40dp"
@@ -38,7 +38,7 @@
             android:layout_marginStart="20dp" />
 
         <Button
-            android:id="@+id/editButton"
+            android:id="@+id/friend_list_btn_add"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
         android:weightSum="5">
 
         <EditText
-            android:id="@+id/searchEditText"
+            android:id="@+id/friend_list_txt_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
@@ -68,7 +68,7 @@
             android:padding="10dp" />
 
         <ImageButton
-            android:id="@+id/searchButton"
+            android:id="@+id/friend_list_btn_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -90,7 +90,9 @@
 <!--            android:layout_height="match_parent"-->
 <!--            tools:listitem="@layout/item_friend" />-->
         <ListView
+            android:id="@+id/friend_list_list_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:dividerHeight="12dp"/>
     </LinearLayout>
 </LinearLayout>

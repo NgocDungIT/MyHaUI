@@ -22,32 +22,30 @@ import com.example.myhaui.Database.DatabaseQuery;
 import com.example.myhaui.R;
 import com.example.myhaui.model.User;
 
-public class ProfileActivity extends AppCompatActivity {
+public class FriendDetailActivity extends AppCompatActivity {
     ImageView avatar;
     ImageButton btnBack;
     TextView profileName, profileCode, profileClass, profileSex, profileAddress, profilePhone, profileKhoa;
-    Button btnUpdate;
     DatabaseQuery dbHelper;
 
     protected void initView(){
         dbHelper = new DatabaseQuery(this);
-        avatar = findViewById(R.id.profile_avt);
-        profileName = findViewById(R.id.profile_name);
-        profileCode = findViewById(R.id.profile_code);
-        profileClass = findViewById(R.id.profile_class);
-        profileKhoa = findViewById(R.id.profile_khoa);
-        profilePhone = findViewById(R.id.profile_phone);
-        profileSex = findViewById(R.id.profile_sex);
-        profileAddress = findViewById(R.id.profile_address);
-        btnUpdate = findViewById(R.id.profile_btn_update);
-        btnBack = findViewById(R.id.profile_btn_back);
+        avatar = findViewById(R.id.pfriend_detail_avt);
+        profileName = findViewById(R.id.friend_detail_name);
+        profileCode = findViewById(R.id.friend_detail_code);
+        profileClass = findViewById(R.id.friend_detail_class);
+        profileKhoa = findViewById(R.id.friend_detail_khoa);
+        profilePhone = findViewById(R.id.friend_detail_phone);
+        profileSex = findViewById(R.id.friend_detail_sex);
+        profileAddress = findViewById(R.id.friend_detail_address);
+        btnBack = findViewById(R.id.friend_detail_btn_back);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_friend_detail);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -57,8 +55,11 @@ public class ProfileActivity extends AppCompatActivity {
         initView();
 
         try {
-            SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
-            String userCode = sharedPreferences.getString("userCode", "");
+            // Nhận Intent đã gọi Activity này
+            Intent intent = getIntent();
+
+            // Nhận dữ liệu từ Intent
+            String userCode = intent.getStringExtra("FRIEND_CODE");
 
             User currentUser = dbHelper.getUserByCode(userCode);
 
@@ -75,21 +76,11 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-
     }
 }

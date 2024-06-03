@@ -14,33 +14,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:background="@drawable/border_linearlayout"
+        android:background="#FFCDD2"
         android:weightSum="6">
 
         <ImageButton
-            android:id="@+id/backButton"
+            android:id="@+id/borrow_list_btn_back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back" />
 
-        <EditText
-            android:id="@+id/searchEditText"
+        <TextView
+            android:id="@+id/adasasda"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:background="@drawable/border_edittext"
-            android:hint="Tìm kiếm"
-            android:padding="10dp" />
-
-        <ImageButton
-            android:id="@+id/searchButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_search" />
+            android:layout_weight="5"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Danh sách sách đã mượn"/>
 
     </LinearLayout>
 
@@ -53,10 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/allButton"
+            android:id="@+id/borrow_list_btn_all"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -66,7 +62,7 @@
             android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/returnedButton"
+            android:id="@+id/borrow_list_btn_paid"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -78,7 +74,7 @@
             android:textColor="@color/black" />
 
         <Button
-            android:id="@+id/borrowedButton"
+            android:id="@+id/borrow_list_btn_borrowing"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -102,7 +98,11 @@
 <!--            android:layout_height="match_parent"-->
 <!--            tools:listitem="@layout/item_borrow_book" />-->
         <ListView
+            android:id="@+id/borrow_list_list_view"
+
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:dividerHeight="12dp"/>
     </LinearLayout>
 </LinearLayout>

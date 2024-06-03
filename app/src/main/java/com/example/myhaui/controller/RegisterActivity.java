@@ -1,5 +1,6 @@
 package com.example.myhaui.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myhaui.Database.DBHelper;
 import com.example.myhaui.Database.DatabaseQuery;
 import com.example.myhaui.R;
 import com.example.myhaui.model.User;
@@ -53,8 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
                     long id = databaseQuery.addNewUser(user);
 
                     if(id>0) {
-                        user.set_id(id);
-                        Toast.makeText(RegisterActivity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
+                        user.set_id((int)id);
+                        Toast.makeText(RegisterActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(RegisterActivity.this, LogInActivity.class);
+                        startActivity(intent);
                     }
                 }
             }
@@ -76,11 +81,20 @@ public class RegisterActivity extends AppCompatActivity {
         if(studentIdEditText.getText().toString().isEmpty() || fullNameEditText.getText().toString().isEmpty() || phoneEditText.getText().toString().isEmpty() || passwordEditText.getText().toString().isEmpty() || confirmPasswordEditText.getText().toString().isEmpty()) {
             msg += "Nhập đầy đủ thông tin";
         }else {
+            DatabaseQuery dbHelper = new DatabaseQuery(this);
+            User user = dbHelper.getUserByCode(studentIdEditText.getText().toString());
+            if(user != null){
+                msg = "Mã sinh viên đã được đăng kí";
+            }
             if(!passwordEditText.getText().toString().equalsIgnoreCase(confirmPasswordEditText.getText().toString())) {
                 msg = "Mật khẩu không khớp";
             }
             if(studentIdEditText.getText().toString().length() != 10) {
                 msg="Mã sinh viên phải chứa 10 kí tự";
+            }
+
+            if(phoneEditText.getText().toString().length() != 12) {
+                msg="Số điện thoại phải đủ 12 số";
             }
         }
         if(!msg.isEmpty()) {

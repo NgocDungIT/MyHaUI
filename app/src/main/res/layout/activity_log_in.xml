@@ -28,7 +28,7 @@
         android:layout_marginBottom="30dp" />
 
     <EditText
-        android:id="@+id/studentIdEditText"
+        android:id="@+id/txt_logIn_Code"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:hint="@string/student_id_hint"
@@ -37,7 +37,7 @@
         android:layout_marginBottom="20dp" />
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/txt_logIn_Pass"
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:hint="@string/password_hint"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="20dp" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/btn_logIn"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="@string/login"
@@ -62,7 +62,7 @@
         android:layout_marginBottom="10dp" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/btn_register"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="@string/register"

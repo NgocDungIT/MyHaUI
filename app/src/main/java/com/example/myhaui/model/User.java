@@ -1,7 +1,7 @@
 package com.example.myhaui.model;
 
 public class User {
-    private long _id;
+    private int _id;
     private String code;
     private String fullName;
     private String password;
@@ -11,7 +11,7 @@ public class User {
     private String faculty;
     private String address;
 
-    public User(long _id, String code, String fullName, String password, String gender, String phoneNumber, String className, String faculty, String address) {
+    public User(int _id, String code, String fullName, String password, String gender, String phoneNumber, String className, String faculty, String address) {
         this._id = _id;
         this.code = code;
         this.fullName = fullName;
@@ -23,11 +23,11 @@ public class User {
         this.address = address;
     }
 
-    public long get_id() {
+    public int get_id() {
         return _id;
     }
 
-    public void set_id(long _id) {
+    public void set_id(int _id) {
         this._id = _id;
     }
 
