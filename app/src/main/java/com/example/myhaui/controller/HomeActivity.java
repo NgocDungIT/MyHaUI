@@ -22,8 +22,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.myhaui.CustomListView.BookViewAdapter;
 import com.example.myhaui.Database.DatabaseQuery;
 import com.example.myhaui.R;
+import com.example.myhaui.model.Author;
 import com.example.myhaui.model.Book;
+import com.example.myhaui.model.Friend;
+import com.example.myhaui.model.Order;
+import com.example.myhaui.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -32,11 +37,9 @@ public class HomeActivity extends AppCompatActivity {
     Button btnFriend, btnBorrow;
     EditText txtSearch;
     ListView listView;
-
     List<Book> listBook;
     BookViewAdapter bookViewAdapter;
     DatabaseQuery dbHelper;
-
     private void initView(){
         dbHelper = new DatabaseQuery(this);
         btnProfile = findViewById(R.id.home_btn_profile);
@@ -72,7 +75,26 @@ public class HomeActivity extends AppCompatActivity {
             }
 
         });
+//Search Book
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(txtSearch.getText().toString().isEmpty()){
+                    Toast.makeText(HomeActivity.this, "Nhập sách cần tìm kiếm", Toast.LENGTH_SHORT).show();
+                }else {
+                    List<Book> searchBooks = dbHelper.searchBooks(txtSearch.getText().toString());
+                    if(searchBooks.size() > 0) {
 
+                    ArrayList<Book> results = new ArrayList<>(searchBooks) ;
+                    Intent intent = new Intent(HomeActivity.this, SearchBookActivity.class);
+                    intent.putExtra("searchBooks", results);
+                    startActivity(intent);
+                    }else {
+                        Toast.makeText(HomeActivity.this, "Sach khong ton tai", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
         btnFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +129,32 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+//        dbHelper.addNewUser(new User(-1, "2021601239", "Nguyễn Văn Cương", "123344", "Nam", "0928343234", "", "", ""));
+//        dbHelper.addNewUser(new User(-1, "2021602133", "Nguyễn Văn Giang", "abc123123", "Nam", "0962800117", "", "", ""));
+//        dbHelper.addNewUser(new User(-1, "2021602134", "Nguyễn An Hậu", "abc123123", "Nam", "0962800117", "", "", ""));
+//        dbHelper.addNewUser(new User(-1, "2021602135", "Lê Trọng Hiệp", "abc123123", "Nam", "0962800117", "", "", ""));
+//        dbHelper.addNewUser(new User(-1, "2021602136", "Hoàng Ngọc Dũng", "abc123123", "Nam", "0962800117", "", "", ""));
+//        dbHelper.addNewUser(new User(-1, "2021602137", "Nguyễn Khắc Hoàng", "abc123123", "Nam", "0962800117", "", "", ""));
+//
+//
+//        dbHelper.addNewFriend(new Friend(-1, 1, "2021601239", "Nguyen Van Cuong", "0928343234"));
+//        dbHelper.addNewFriend(new Friend(-1, 1, "2021601234", "Hoang Ngoc Dung", "0962800117"));
+//        dbHelper.addNewAuthor(new Author(-1, "Vũ Thị Dương"));
+//        dbHelper.addNewAuthor(new Author(-1, "Hà Mạnh Đào"));
+//        dbHelper.addNewAuthor(new Author(-1, "Lê Anh Thắng"));
+//        dbHelper.addNewAuthor(new Author(-1, "Phạm Thị Kim Phượng"));
+//        dbHelper.addNewBook(new Book(-1, "Android", "android", 140, "Tiếng Việt", 40, 1, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Mạng máy tính", "mangmaytinh", 140, "Tiếng Việt", 40, 3, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Quản trị mạng", "quantrimang", 140, "Tiếng Việt", 40, 2, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Phân tích hệ thống", "phantichhethong", 140, "Tiếng Việt", 40, 4, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Hệ cơ sở dữ liệu", "database", 140, "Tiếng Việt", 40, 1, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Lập trình Java nâng cao", "java", 140, "Tiếng Việt", 40, 2, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Lập trình C++", "c", 140, "Tiếng Việt", 40, 3, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Lập trình Web", "web", 140, "Tiếng Việt", 40, 2, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Lập trình hướng đối tượng", "oop", 140, "Tiếng Việt", 40, 2, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "An toàn bảo mật thông tin", "atbm", 140, "Tiếng Việt", 40, 1, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//        dbHelper.addNewBook(new Book(-1, "Kiến trúc máy tính và hệ điều hành", "ktmt", 140, "Tiếng Việt", 40, 4, "Đĩa cứng cần được định dạng (format) trước khi sử dụng. Có hai mức định dạng đĩa cứng: định dạng mức thấp (lower level format) và định dạng mức cao (high level format). Định dạng mức thấp là quá trình gán địa chỉ cho các cung vật lý trên đĩa và có thể được thực hiện bởi các chức năng của BIOS. Hiện nay, hầu hết các ổ đĩa cứng đều đã được định dạng mức thấp khi xuất xưởng. Sau khi được định", "31/5/2024"));
+//
+//        dbHelper.addNewOrder(new Order(-1, 1, 1, 1, "1/06/2024", "8/07/2024", 0));
     }
 }

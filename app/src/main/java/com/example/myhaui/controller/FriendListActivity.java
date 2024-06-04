@@ -37,7 +37,7 @@ import java.util.List;
 public class FriendListActivity extends AppCompatActivity {
 
     ImageButton btnBack, btnSearch;
-    Button btnAdd;
+    Button btnAdd, btnBorrow, btnHome;
     EditText txtSearch;
     ListView listView;
     Dialog dialog;
@@ -53,6 +53,8 @@ public class FriendListActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.friend_list_btn_add);
         txtSearch = findViewById(R.id.friend_list_txt_search);
         listView = findViewById(R.id.friend_list_list_view);
+        btnHome = findViewById(R.id.friend_btn_home);
+        btnBorrow = findViewById(R.id.friend_btn_borrow);
         dialog = new Dialog(this);
     }
 
@@ -147,6 +149,7 @@ public class FriendListActivity extends AppCompatActivity {
                     friendArrayAdapter.notifyDataSetChanged();
                 }else {
                     friendList.clear();
+                    Log.d("Friend", "onClick: "+ txtSearch.getText().toString());
                     friendList = dbHelper.searchFriendOfUser(userID, txtSearch.getText().toString());
                     friendArrayAdapter = new FriendViewAdapter(FriendListActivity.this, friendList);
                     listView.setAdapter(friendArrayAdapter);
@@ -161,7 +164,20 @@ public class FriendListActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendListActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnBorrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FriendListActivity.this, BorrowBooksListActivity.class);
+                startActivity(intent);
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

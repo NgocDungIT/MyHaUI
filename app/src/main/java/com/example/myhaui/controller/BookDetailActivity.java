@@ -79,8 +79,8 @@ public class BookDetailActivity extends AppCompatActivity {
         int idAuthor = book.getAuthor_id();
         author =  dbHelper.getAthorByID(idAuthor);
 
-//        String imageName = book.getImage().toString().trim();
-        String imageName = "mangmaytinh";
+        String imageName = book.getImage().toString().trim();
+//        String imageName = "mangmaytinh";
         int imageResId = getResources().getIdentifier(imageName, "drawable", getPackageName());
         bookImg.setImageResource(imageResId);
         bookName.setText(book.getName());

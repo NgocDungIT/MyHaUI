@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -38,71 +38,124 @@
 
     </LinearLayout>
 
-    <!-- Search Bar -->
-
-    <!-- Filter Buttons -->
     <LinearLayout
-        android:id="@+id/filterButtonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="703dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <!-- Search Bar -->
+
+        <!-- Filter Buttons -->
+        <LinearLayout
+            android:id="@+id/filterButtonsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <Button
+                android:id="@+id/borrow_list_btn_all"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_buttom"
+                android:backgroundTint="#FF7043"
+                android:text="Tất cả"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/borrow_list_btn_paid"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_buttom"
+                android:backgroundTint="#8BC34A"
+                android:text="Đã trả"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/borrow_list_btn_borrowing"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_buttom"
+                android:backgroundTint="#FFA000"
+                android:text="Đang mượn"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!-- Book List -->
+        <LinearLayout
+            android:id="@+id/bookListLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <!--        <androidx.recyclerview.widget.RecyclerView-->
+            <!--            android:id="@+id/item_work"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            tools:listitem="@layout/item_borrow_book" />-->
+            <ListView
+                android:id="@+id/borrow_list_list_view"
+
+                android:layout_width="match_parent"
+                android:layout_height="654dp"
+                android:layout_margin="8dp"
+                android:divider="@drawable/divider"
+                android:dividerHeight="12.0dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/border_navigation"
         android:gravity="center"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/borrow_list_btn_all"
+            android:id="@+id/borrows_btn_home"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="#FF7043"
-            android:text="Tất cả"
-            android:background="@drawable/border_buttom"
-            android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/borrow_list_btn_paid"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="#8BC34A"
-            android:background="@drawable/border_buttom"
-            android:text="Đã trả"
-            android:textColor="@color/black" />
-
-        <Button
-            android:id="@+id/borrow_list_btn_borrowing"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="#FFA000"
-            android:background="@drawable/border_buttom"
-            android:text="Đang mượn"
-            android:textColor="@color/black" />
-    </LinearLayout>
-
-    <!-- Book List -->
-    <LinearLayout
-        android:id="@+id/bookListLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/item_work"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            tools:listitem="@layout/item_borrow_book" />-->
-        <ListView
-            android:id="@+id/borrow_list_list_view"
-
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:dividerHeight="12dp"/>
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTop="@drawable/ic_book"
+            android:gravity="center"
+            android:text="Trang chủ"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/borrows_btn_friend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTop="@drawable/ic_friends"
+            android:gravity="center"
+            android:text="Bạn bè"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/borrows_btn_borrow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:drawableTop="@drawable/ic_history"
+            android:gravity="center"
+            android:text="Sách đã mượn"
+            android:textColor="#000000"
+            android:textSize="16sp" />
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>
