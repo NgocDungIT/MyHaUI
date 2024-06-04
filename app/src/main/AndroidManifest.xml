@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyHaUI"
         tools:targetApi="31">
         <activity
+            android:name=".controller.SearchBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.EditProfileActivity"
             android:exported="false" />
         <activity
@@ -30,15 +33,15 @@
         <activity
             android:name=".controller.FriendListActivity"
             android:exported="false" />
-         <activity
-         android:name=".controller.BorrowBooksListActivity"
-         android:exported="false" />
-         <activity
-         android:name=".controller.BookDetailActivity"
-         android:exported="false" />
         <activity
-            android:name=".controller.HomeActivity"
+            android:name=".controller.BorrowBooksListActivity"
             android:exported="false" />
+        <activity
+            android:name=".controller.BookDetailActivity"
+            android:exported="false" />
+         <activity
+         android:name=".controller.HomeActivity"
+         android:exported="false" />
         <activity
             android:name=".controller.LogInActivity"
             android:exported="true"

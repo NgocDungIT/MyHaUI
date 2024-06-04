@@ -316,7 +316,7 @@ public class DatabaseQuery {
 
         Cursor cursor = null;
         try {
-            cursor = db.query(TABLE_FRIEND, null, COLUMN_FRIEND_USERID + " = ? AND " + COLUMN_FRIEND_NAME + " = ?", new String[]{String.valueOf(user_id), "%" + name + "%"}, null, null, null);
+            cursor = db.query(TABLE_FRIEND, null, COLUMN_FRIEND_USERID + " = ? AND " + COLUMN_FRIEND_NAME + " LIKE ?", new String[]{String.valueOf(user_id), "%" + name + "%"}, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     List<Friend> friends = new ArrayList<>();
@@ -458,7 +458,7 @@ public class DatabaseQuery {
      * get all book by author_id
      * get book by id
      * update quantity b0ok
-     *
+     * search book
      * */
 //    create new book
     public long addNewBook(Book book) {
@@ -620,7 +620,45 @@ public class DatabaseQuery {
         }
         return rowCount;
     }
+//Search book
+    public List<Book> searchBooks(String name) {
+        DBHelper databaseHelper = DBHelper.getInstance(context);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE_BOOK, null,  COLUMN_BOOK_NAME + " LIKE ?", new String[]{"%" + name + "%"}, null, null, null);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    List<Book> books = new ArrayList<>();
+                    do {
+                        int id = safeGetInteger(cursor, COLUMN_BOOK_ID);
+                        String bookName = safeGetString(cursor, COLUMN_BOOK_NAME);
+                        String image = safeGetString(cursor, COLUMN_BOOK_IMAGE);
+                        int pages = safeGetInteger(cursor, COLUMN_BOOK_PAGES);
+                        String language = safeGetString(cursor, COLUMN_BOOK_LANGUAGE);
+                        int quantity = safeGetInteger(cursor, COLUMN_BOOK_QUANTITY);
+                        int author_id = safeGetInteger(cursor, COLUMN_BOOK_AUTHOR_ID);
+
+                        String description = safeGetString(cursor, COLUMN_BOOK_DESCRIPTION);
+                        String published_date = safeGetString(cursor, COLUMN_BOOK_PUBLISHED_DATE);
+
+                        books.add(new Book(id, bookName, image, pages, language, quantity, author_id, description, published_date));
+                    } while (cursor.moveToNext());
+//                    Toast.makeText(context, friends.get(0).getFullName(), Toast.LENGTH_SHORT).show();
+                    return books;
+                }
+            }
+        } catch (Exception ex) {
+            Toast.makeText(context, "Có lỗi xảy ra khi đọc dữ liệu", Toast.LENGTH_SHORT).show();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return Collections.emptyList();
+    }
     /*
      * Order table
      * create order

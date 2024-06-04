@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trạng thái: Đang mượn"
+            android:maxLines="2"
             android:textColor="#4E4E4E"
             android:textSize="16sp" />
     </LinearLayout>

@@ -26,7 +26,7 @@ import java.util.List;
 
 public class BorrowBooksListActivity extends AppCompatActivity {
     ImageButton btnBack;
-    Button btnAll, btnPaid, btnBorrowing;
+    Button btnAll, btnPaid, btnBorrowing, btnHome, btnFriend;
     ListView listView;
     DatabaseQuery dbHelper;
     BorrowViewAdapter orderArrayAdapter;
@@ -40,6 +40,8 @@ public class BorrowBooksListActivity extends AppCompatActivity {
         btnPaid = findViewById(R.id.borrow_list_btn_paid);
         btnBorrowing = findViewById(R.id.borrow_list_btn_borrowing);
         listView = findViewById(R.id.borrow_list_list_view);
+        btnHome = findViewById(R.id.borrows_btn_home);
+        btnFriend = findViewById(R.id.borrows_btn_friend);
         dbHelper = new DatabaseQuery(this);
     }
 
@@ -107,7 +109,20 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+    btnHome.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(BorrowBooksListActivity.this, HomeActivity.class);
+            startActivity(intent);
+        }
+    });
+    btnFriend.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(BorrowBooksListActivity.this, FriendListActivity.class);
+            startActivity(intent);
+        }
+    });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
