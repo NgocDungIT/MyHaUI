@@ -23,6 +23,7 @@ import com.example.myhaui.Database.DatabaseQuery;
 import com.example.myhaui.R;
 import com.example.myhaui.model.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BorrowBooksListActivity extends AppCompatActivity {
@@ -31,7 +32,8 @@ public class BorrowBooksListActivity extends AppCompatActivity {
     ListView listView;
     DatabaseQuery dbHelper;
     BorrowViewAdapter orderArrayAdapter;
-    List<Order> orderList = null;
+    List<Order> orderList = new ArrayList<Order>();
+    int userID;
 
 
     private void initView(){
@@ -59,11 +61,6 @@ public class BorrowBooksListActivity extends AppCompatActivity {
 
         try {
             initView();
-            SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
-            int userID = sharedPreferences.getInt("userID", -1);
-
-            orderList = dbHelper.getAllOrdering(userID, 0);
-            orderList.addAll(dbHelper.getAllOrdering(userID, 1));
 
             orderArrayAdapter = new BorrowViewAdapter(this, orderList);
             listView.setAdapter(orderArrayAdapter);
@@ -72,12 +69,9 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     orderList.clear();
-                    orderList = dbHelper.getAllOrdering(userID, 0);
-                    orderList.addAll(dbHelper.getAllOrdering(userID, 1));
-
-                    orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderList);
-                    listView.setAdapter(orderArrayAdapter);
-                    orderArrayAdapter.notifyDataSetChanged();
+                    orderList.addAll(dbHelper.getAllOrdering(userID, 0)) ;
+                    orderList.addAll(dbHelper.getAllOrdering(userID, 1)) ;
+                    orderArrayAdapter.changeData(orderList);
                 }
             });
 
@@ -85,11 +79,8 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     orderList.clear();
-                    orderList = dbHelper.getAllOrdering(userID, 1);
-
-                    orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderList);
-                    listView.setAdapter(orderArrayAdapter);
-                    orderArrayAdapter.notifyDataSetChanged();
+                    orderList.addAll(dbHelper.getAllOrdering(userID, 1)) ;
+                    orderArrayAdapter.changeData(orderList);
                 }
             });
 
@@ -97,11 +88,8 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     orderList.clear();
-                    orderList = dbHelper.getAllOrdering(userID, 0);
-
-                    orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderList);
-                    listView.setAdapter(orderArrayAdapter);
-                    orderArrayAdapter.notifyDataSetChanged();
+                    orderList.addAll(dbHelper.getAllOrdering(userID, 0)) ;
+                    orderArrayAdapter.changeData(orderList);
                 }
             });
 
@@ -147,5 +135,17 @@ public class BorrowBooksListActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
+        userID = sharedPreferences.getInt("userID", -1);
+
+        orderList = dbHelper.getAllOrdering(userID, 0);
+        orderList.addAll(dbHelper.getAllOrdering(userID, 1));
+
+        orderArrayAdapter.changeData(orderList);
+    }
 
 }

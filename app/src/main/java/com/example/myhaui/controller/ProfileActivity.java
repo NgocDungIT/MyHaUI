@@ -55,25 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         initView();
+        loadData();
 
-        try {
-            SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
-            String userCode = sharedPreferences.getString("userCode", "");
-
-            User currentUser = dbHelper.getUserByCode(userCode);
-
-            profileName.setText(currentUser.getFullName());
-            profileCode.setText(currentUser.getCode());
-            profileClass.setText(currentUser.getCode());
-            profileKhoa.setText(currentUser.getFaculty());
-            profilePhone.setText(currentUser.getPhoneNumber());
-            profileSex.setText(currentUser.getGender());
-            profileAddress.setText(currentUser.getAddress());
-        }catch (Exception ex)
-        {
-            Log.d("Profile:", "onCreate: ", ex);
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
-        }
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,4 +75,33 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+
+    private void loadData(){
+        try {
+            SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
+            String userCode = sharedPreferences.getString("userCode", "");
+
+            User currentUser = dbHelper.getUserByCode(userCode);
+
+            profileName.setText(currentUser.getFullName());
+            profileCode.setText(currentUser.getCode());
+            profileClass.setText(currentUser.getCode());
+            profileKhoa.setText(currentUser.getFaculty());
+            profilePhone.setText(currentUser.getPhoneNumber());
+            profileSex.setText(currentUser.getGender());
+            profileAddress.setText(currentUser.getAddress());
+        }catch (Exception ex)
+        {
+            Log.d("Profile:", "onCreate: ", ex);
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reload data when Activity is resumed
+        loadData();
+    }
+
 }

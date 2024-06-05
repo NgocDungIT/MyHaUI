@@ -68,4 +68,9 @@ public class BorrowViewAdapter extends BaseAdapter {
 
         return convertView;
     }
+    public void changeData(List<Order> list){
+        arrayListOrder.clear();
+        arrayListOrder.addAll(list);
+        notifyDataSetChanged();
+    }
 }
