@@ -52,7 +52,7 @@ public class BookViewAdapter extends BaseAdapter {
         ImageView bookImg = convertView.findViewById(R.id.item_book_img);
         TextView bookName = convertView.findViewById(R.id.item_book_name);
 
-                String imageName = currentBook.getImage().toString().trim();
+        String imageName = currentBook.getImage().toString().trim();
 //        String imageName = "mangmaytinh";
         int imageResId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
         bookImg.setImageResource(imageResId);

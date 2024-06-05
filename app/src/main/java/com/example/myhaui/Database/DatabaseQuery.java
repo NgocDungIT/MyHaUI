@@ -514,7 +514,6 @@ public class DatabaseQuery {
 
                         books.add(new Book(id, name, image, pages, language, quantity, author_id, description, published_date));
                     } while (cursor.moveToNext());
-                    Toast.makeText(context, books.get(0).getName(), Toast.LENGTH_SHORT).show();
                     return books;
                 }
             }
