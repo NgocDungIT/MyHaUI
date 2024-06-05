@@ -33,6 +33,7 @@
         android:layout_height="55dp"
         android:hint="@string/student_id_hint"
         android:padding="10dp"
+        android:inputType="number"
         android:background="@drawable/border_edittext"
         android:layout_marginBottom="20dp" />
 
