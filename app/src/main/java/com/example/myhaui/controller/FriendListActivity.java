@@ -113,7 +113,12 @@ public class FriendListActivity extends AppCompatActivity {
                             if(user == null){
                                 Toast.makeText(FriendListActivity.this, "Không tồn tại sinh viên kết bạn. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
                                 return;
-                            }else {
+                            }
+                             if (user.get_id() == userID) {
+                                 Toast.makeText(FriendListActivity.this, "Không kết bạn được với chính mình .Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                                 return;
+                             }
+                            else {
                                 Friend check = dbHelper.getFriendByCode(dialogCode.getText().toString(),userID);
                                 if(check != null){
                                     Toast.makeText(FriendListActivity.this, "Đã kết bạn với sinh viên này. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();

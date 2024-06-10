@@ -732,13 +732,15 @@ public class DatabaseQuery {
     }
 
     //    get ordering by user
-    public List<Order> getAllOrdering(int userId, int returned) {
+    public List<Order> getAllOrdering(int userId) {
         DBHelper databaseHelper = DBHelper.getInstance(context);
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
 
         Cursor cursor = null;
         try {
-            cursor = db.query(Config.TABLE_ORDER, null, COLUMN_ORDER_USER_ID + " = ? AND " + COLUMN_ORDER_IS_RETURNED + " = ? ", new String[]{String.valueOf(userId), String.valueOf(returned)}, null, null, null, null);
+//            cursor = db.query(Config.TABLE_ORDER, null, COLUMN_ORDER_USER_ID + " = ? AND " + COLUMN_ORDER_IS_RETURNED + " = ? ", new String[]{String.valueOf(userId), String.valueOf(returned)}, null, null, null, null);
+                cursor = db.query(Config.TABLE_ORDER, null, COLUMN_ORDER_USER_ID + " = ? ", new String[]{String.valueOf(userId)}, null, null, null, null);
+
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
                     List<Order> orders = new ArrayList<>();
