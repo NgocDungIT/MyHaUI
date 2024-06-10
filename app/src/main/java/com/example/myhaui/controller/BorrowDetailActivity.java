@@ -38,7 +38,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
     Book book;
 
 
-    private void initView(){
+    private void initView() {
         dbHelper = new DatabaseQuery(this);
         bookImg = findViewById(R.id.borrow_detail_img);
         bookName = findViewById(R.id.borrow_detail_name);
@@ -72,7 +72,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
 
             order = dbHelper.getOrderById(orderID);
 
-            if(order.getIs_returned() == 1){
+            if (order.getIs_returned() == 1) {
                 btnDue.setVisibility(View.GONE);
             }
 
@@ -102,6 +102,8 @@ public class BorrowDetailActivity extends AppCompatActivity {
                     bookDueDate.setText(dueDate);
                     btnDue.setVisibility(View.GONE);
                     Toast.makeText(BorrowDetailActivity.this, "Trả sách thành công.", Toast.LENGTH_SHORT).show();
+                    Intent resultIntent = new Intent();
+                    setResult(RESULT_OK, resultIntent);
                 }
             });
 
@@ -113,8 +115,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
             });
 
 
-
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Log.d("Borrow Detail: ", "onCreate: " + ex);
         }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,18 +23,24 @@ import com.example.myhaui.Database.DatabaseQuery;
 import com.example.myhaui.R;
 import com.example.myhaui.model.Order;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BorrowBooksListActivity extends AppCompatActivity {
+    public static final String TAG = "BorrowingBooksList";
     ImageButton btnBack;
     Button btnAll, btnPaid, btnBorrowing, btnHome, btnFriend;
     ListView listView;
     DatabaseQuery dbHelper;
     BorrowViewAdapter orderArrayAdapter;
-    List<Order> orderList = null;
+    List<Order> orderList = new ArrayList<Order>();
+    List<Order> orderPaid = new ArrayList<Order>();
+    List<Order> orderBorrowing = new ArrayList<Order>();
 
+    int userID;
 
-    private void initView(){
+    private void initView() {
         dbHelper = new DatabaseQuery(this);
         btnBack = findViewById(R.id.borrow_list_btn_back);
         btnAll = findViewById(R.id.borrow_list_btn_all);
@@ -43,6 +50,7 @@ public class BorrowBooksListActivity extends AppCompatActivity {
         btnHome = findViewById(R.id.borrows_btn_home);
         btnFriend = findViewById(R.id.borrows_btn_friend);
         dbHelper = new DatabaseQuery(this);
+        loadData();
     }
 
     @Override
@@ -58,34 +66,23 @@ public class BorrowBooksListActivity extends AppCompatActivity {
 
         initView();
         SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
-        int userID = sharedPreferences.getInt("userID", -1);
-
-        orderList = dbHelper.getAllOrdering(userID, 0);
-        orderList.addAll(dbHelper.getAllOrdering(userID, 1));
-
-        orderArrayAdapter = new BorrowViewAdapter(this, orderList);
-        listView.setAdapter(orderArrayAdapter);
-
+        userID = sharedPreferences.getInt("userID", -1);
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderList.clear();
-                orderList = dbHelper.getAllOrdering(userID, 0);
-                orderList.addAll(dbHelper.getAllOrdering(userID, 1));
-
-                orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderList);
-                listView.setAdapter(orderArrayAdapter);
-                orderArrayAdapter.notifyDataSetChanged();
+                loadData();
             }
         });
 
         btnPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderList.clear();
-                orderList = dbHelper.getAllOrdering(userID, 1);
-
-                orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderList);
+                for(int i = 0; i < orderList.size(); i++) {
+                    if(orderList.get(i).getIs_returned() == 1) {
+                        orderPaid.add(orderList.get(i));
+                    }
+                }
+                orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderPaid);
                 listView.setAdapter(orderArrayAdapter);
                 orderArrayAdapter.notifyDataSetChanged();
             }
@@ -94,12 +91,19 @@ public class BorrowBooksListActivity extends AppCompatActivity {
         btnBorrowing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderList.clear();
-                orderList = dbHelper.getAllOrdering(userID, 0);
+                try {
+                    for(int i = 0; i < orderList.size(); i++) {
+                    if(orderList.get(i).getIs_returned() == 0) {
+                        orderBorrowing.add(orderList.get(i));
+                    }
+                }
+                    orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderBorrowing);
+                    listView.setAdapter(orderArrayAdapter);
+                    orderArrayAdapter.notifyDataSetChanged();
 
-                orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderList);
-                listView.setAdapter(orderArrayAdapter);
-                orderArrayAdapter.notifyDataSetChanged();
+                }catch (Exception ex) {
+                    Log.e(TAG, "onClick: " + ex.getMessage());
+                }
             }
         });
 
@@ -109,20 +113,20 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                 finish();
             }
         });
-    btnHome.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(BorrowBooksListActivity.this, HomeActivity.class);
-            startActivity(intent);
-        }
-    });
-    btnFriend.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(BorrowBooksListActivity.this, FriendListActivity.class);
-            startActivity(intent);
-        }
-    });
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BorrowBooksListActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BorrowBooksListActivity.this, FriendListActivity.class);
+                startActivity(intent);
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -136,11 +140,41 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                 intent.putExtra("ORDER_ID", orderID);
 
                 // Bắt đầu SecondActivity
-                startActivity(intent);
+//                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
     }
 
+    public void loadData() {
+        try {
+//            orderList.clear();
+            orderList = dbHelper.getAllOrdering(userID);
 
+            orderArrayAdapter = new BorrowViewAdapter(this, orderList);
+            listView.setAdapter(orderArrayAdapter);
+            orderArrayAdapter.notifyDataSetChanged();
+
+        } catch (Exception ex) {
+            Log.d("BorrowList", "loadData() returned: " + ex.getStackTrace());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                // Cập nhật lại danh sách khi quay lại từ BorrowDetailActivity
+                loadData();
+            }
+        }
+    }
 }
