@@ -77,14 +77,21 @@ public class BorrowBooksListActivity extends AppCompatActivity {
         btnPaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < orderList.size(); i++) {
-                    if(orderList.get(i).getIs_returned() == 1) {
-                        orderPaid.add(orderList.get(i));
+                try {
+                    orderPaid.clear();
+
+                    for (int i = 0; i < orderList.size(); i++) {
+                        if (orderList.get(i).getIs_returned() == 1) {
+                            orderPaid.add(orderList.get(i));
+                        }
                     }
+                    orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderPaid);
+                    listView.setAdapter(orderArrayAdapter);
+                    orderArrayAdapter.notifyDataSetChanged();
+                } catch (Exception ex) {
+                    Log.e(TAG, "onClick: " + ex.getMessage());
                 }
-                orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderPaid);
-                listView.setAdapter(orderArrayAdapter);
-                orderArrayAdapter.notifyDataSetChanged();
+
             }
         });
 
@@ -92,16 +99,18 @@ public class BorrowBooksListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    for(int i = 0; i < orderList.size(); i++) {
-                    if(orderList.get(i).getIs_returned() == 0) {
-                        orderBorrowing.add(orderList.get(i));
+                    orderBorrowing.clear();
+
+                    for (int i = 0; i < orderList.size(); i++) {
+                        if (orderList.get(i).getIs_returned() == 0) {
+                            orderBorrowing.add(orderList.get(i));
+                        }
                     }
-                }
                     orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderBorrowing);
                     listView.setAdapter(orderArrayAdapter);
                     orderArrayAdapter.notifyDataSetChanged();
 
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                     Log.e(TAG, "onClick: " + ex.getMessage());
                 }
             }
@@ -149,7 +158,7 @@ public class BorrowBooksListActivity extends AppCompatActivity {
 
     public void loadData() {
         try {
-//            orderList.clear();
+            orderList.clear();
             orderList = dbHelper.getAllOrdering(userID);
 
             orderArrayAdapter = new BorrowViewAdapter(this, orderList);
