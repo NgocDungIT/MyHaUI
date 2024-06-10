@@ -55,8 +55,8 @@ public class BorrowViewAdapter extends BaseAdapter {
         TextView bookStatus = convertView.findViewById(R.id.borrow_item_status);
 
 
-        //        String imageName = book.getImage().toString().trim();
-        String imageName = "mangmaytinh";
+        String imageName = book.getImage().toString().trim();
+//        String imageName = "mangmaytinh";
         int imageResId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
         bookImg.setImageResource(imageResId);
         bookName.setText(book.getName());
@@ -67,5 +67,10 @@ public class BorrowViewAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+    public void changeData(List<Order> list){
+        arrayListOrder.clear();
+        arrayListOrder.addAll(list);
+        notifyDataSetChanged();
     }
 }

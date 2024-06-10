@@ -78,8 +78,7 @@ public class BorrowDetailActivity extends AppCompatActivity {
 
             book = dbHelper.getBookById(order.getBook_id());
             Author author = dbHelper.getAthorByID(book.getAuthor_id());
-            //        String imageName = book.getImage().toString().trim();
-            String imageName = "mangmaytinh";
+            String imageName = book.getImage().toString().trim();
             int imageResId = getResources().getIdentifier(imageName, "drawable", getPackageName());
             bookImg.setImageResource(imageResId);
             bookName.setText(book.getName().toString());

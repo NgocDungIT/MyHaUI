@@ -109,7 +109,7 @@ public class BookDetailActivity extends AppCompatActivity {
         btnDecrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quantityBorrow == 0){
+                if(quantityBorrow == 1){
                     Toast.makeText(BookDetailActivity.this, "Số lượng mượn phải lớn hơn 0.", Toast.LENGTH_SHORT).show();
                     return;
                 }

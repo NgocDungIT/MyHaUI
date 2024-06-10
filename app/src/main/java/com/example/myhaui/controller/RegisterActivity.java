@@ -86,15 +86,15 @@ public class RegisterActivity extends AppCompatActivity {
             if(user != null){
                 msg = "Mã sinh viên đã được đăng kí";
             }
+
             if(!passwordEditText.getText().toString().equalsIgnoreCase(confirmPasswordEditText.getText().toString())) {
                 msg = "Mật khẩu không khớp";
-            }
-            if(studentIdEditText.getText().toString().length() != 10) {
+            } else if(studentIdEditText.getText().toString().length() != 10) {
                 msg="Mã sinh viên phải chứa 10 kí tự";
-            }
-
-            if(phoneEditText.getText().toString().length() != 12) {
-                msg="Số điện thoại phải đủ 12 số";
+            }else if(phoneEditText.getText().toString().length() != 10) {
+                msg="Số điện thoại phải đủ 10 số";
+            } else if(passwordEditText.getText().toString().length() < 7) {
+                msg="Mật khẩu phải trên 6 kí tự. ";
             }
         }
         if(!msg.isEmpty()) {
