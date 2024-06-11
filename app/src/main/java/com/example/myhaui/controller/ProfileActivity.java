@@ -26,10 +26,10 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView avatar;
     ImageButton btnBack;
     TextView profileName, profileCode, profileClass, profileSex, profileAddress, profilePhone, profileKhoa;
-    Button btnUpdate;
+    Button btnUpdate, btnLogout;
     DatabaseQuery dbHelper;
 
-    protected void initView(){
+    protected void initView() {
         dbHelper = new DatabaseQuery(this);
         avatar = findViewById(R.id.profile_avt);
         profileName = findViewById(R.id.profile_name);
@@ -41,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileAddress = findViewById(R.id.profile_address);
         btnUpdate = findViewById(R.id.profile_btn_update);
         btnBack = findViewById(R.id.profile_btn_back);
+        btnLogout = findViewById(R.id.profile_btn_logout);
     }
 
     @Override
@@ -57,6 +58,20 @@ public class ProfileActivity extends AppCompatActivity {
         initView();
         loadData();
 
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putInt("userID", -1);
+                editor.putString("userCode", "");
+                editor.apply();
+
+                Intent intent2 = new Intent(ProfileActivity.this, LogInActivity.class);
+                startActivity(intent2);
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void loadData(){
+    private void loadData() {
         try {
             SharedPreferences sharedPreferences = getSharedPreferences("Information_User", Context.MODE_PRIVATE);
             String userCode = sharedPreferences.getString("userCode", "");
@@ -90,8 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
             profilePhone.setText(currentUser.getPhoneNumber());
             profileSex.setText(currentUser.getGender());
             profileAddress.setText(currentUser.getAddress());
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Log.d("Profile:", "onCreate: ", ex);
             Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }

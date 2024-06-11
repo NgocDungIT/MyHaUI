@@ -242,5 +242,14 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/profile_btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_btn_resiter"
+        android:backgroundTint="@color/login_button_color"
+        android:text="Đăng xuất" />
 
 </LinearLayout>
