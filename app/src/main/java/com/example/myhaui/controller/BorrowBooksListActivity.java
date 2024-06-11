@@ -87,7 +87,6 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                     }
                     orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderPaid);
                     listView.setAdapter(orderArrayAdapter);
-                    orderArrayAdapter.notifyDataSetChanged();
                 } catch (Exception ex) {
                     Log.e(TAG, "onClick: " + ex.getMessage());
                 }
@@ -108,7 +107,6 @@ public class BorrowBooksListActivity extends AppCompatActivity {
                     }
                     orderArrayAdapter = new BorrowViewAdapter(BorrowBooksListActivity.this, orderBorrowing);
                     listView.setAdapter(orderArrayAdapter);
-                    orderArrayAdapter.notifyDataSetChanged();
 
                 } catch (Exception ex) {
                     Log.e(TAG, "onClick: " + ex.getMessage());
